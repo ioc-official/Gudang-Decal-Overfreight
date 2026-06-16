@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Overfreight Decal Indonesia</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    :root {
+      --bg-primary:      #0a0c10;
+      --bg-secondary:    #0f1218;
+      --bg-card:         #13171f;
+      --bg-card-hover:   #181d27;
+      --accent-orange:   #f97316;
+      --accent-orange-dim:#c2590f;
+      --accent-yellow:   #fbbf24;
+      --text-primary:    #f1f5f9;
+      --text-secondary:  #94a3b8;
+      --text-muted:      #475569;
+      --border:          #1e2533;
+      --border-accent:   #f9731630;
+      --glow:            0 0 40px #f9731615;
+      --nav-h:           64px;
+      --radius:          16px;
+      --font-display:    clamp(2rem,6vw,4.5rem);
+    }
+
+    /* ── ADS device classes injected by JS ── */
+    /* .ads-iphone | .ads-hp | .ads-hp-jadul | .ads-tablet-ipad |
+       .ads-tablet | .ads-tablet-jadul | .ads-laptop | .ads-pc    */
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* noise – hidden on jadul */
+    body::before {
+      content:'';
+      position:fixed; inset:0;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events:none; z-index:0; opacity:.4;
+    }
+    .ads-hp-jadul body::before,
+    .ads-tablet-jadul body::before { display:none; }
+
+    /* road stripe */
+    .road-stripe {
+      position:fixed; bottom:0; left:0; right:0; height:3px;
+      background:repeating-linear-gradient(90deg,var(--accent-orange) 0,var(--accent-orange) 40px,transparent 40px,transparent 80px);
+      background-size:80px 3px;
+      animation:road 2s linear infinite;
+      opacity:.6; z-index:100;
+    }
+    @keyframes road { to { background-position:-80px 0; } }
+
+    /* ─── ADS DEVICE BADGE ─── */
+    #ads-badge {
+      position:fixed; bottom:14px; right:14px; z-index:200;
+      display:flex; align-items:center; gap:6px;
+      background:rgba(10,12,16,.85);
+      border:1px solid var(--border-accent);
+      backdrop-filter:blur(10px);
+      padding:.3rem .7rem; border-radius:100px;
+      font-family:'JetBrains Mono',monospace;
+      font-size:.62rem; color:var(--accent-orange);
+      letter-spacing:.06em; opacity:.7;
+      pointer-events:none;
+      transition:opacity .3s;
+    }
+    #ads-badge::before { content:''; width:5px; height:5px; border-radius:50%; background:var(--accent-orange); }
+
+    /* ─── NAVBAR ─── */
+    nav {
+      position:fixed; top:0; left:0; right:0; z-index:50;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:0 2rem; height:var(--nav-h);
+      background:rgba(10,12,16,.85);
+      backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+      border-bottom:1px solid var(--border);
+    }
+    .nav-logo { display:flex; align-items:center; gap:.75rem; text-decoration:none; }
+    .nav-logo-icon {
+      width:36px; height:36px; border-radius:8px; flex-shrink:0;
+      background:linear-gradient(135deg,var(--accent-orange),var(--accent-yellow));
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.05rem; font-weight:900; color:#0a0c10;
+    }
+    .nav-logo-text { font-size:.9rem; font-weight:700; letter-spacing:.02em; line-height:1.2; }
+    .nav-logo-sub  { font-size:.62rem; color:var(--text-muted); letter-spacing:.06em; text-transform:uppercase; }
+    .nav-badge {
+      font-family:'JetBrains Mono',monospace; font-size:.68rem;
+      color:var(--accent-orange); border:1px solid var(--border-accent);
+      padding:.22rem .55rem; border-radius:4px; letter-spacing:.04em;
+    }
+    /* nav tweak – tablet & hp */
+    .ads-hp .nav-logo-sub,
+    .ads-hp-jadul .nav-logo-sub,
+    .ads-iphone .nav-logo-sub { display:none; }
+    .ads-hp-jadul .nav-badge,
+    .ads-tablet-jadul .nav-badge { display:none; }
+    .ads-iphone nav { padding:0 1.2rem; }
+
+    /* ─── HERO ─── */
+    .hero {
+      position:relative; min-height:100vh;
+      display:flex; flex-direction:column;
+      align-items:center; justify-content:center;
+      padding:calc(var(--nav-h) + 4rem) 2rem 4rem;
+      text-align:center; z-index:1;
+    }
+    .hero-grid {
+      position:absolute; inset:0;
+      background-image:
+        linear-gradient(var(--border) 1px,transparent 1px),
+        linear-gradient(90deg,var(--border) 1px,transparent 1px);
+      background-size:60px 60px; opacity:.3;
+      mask-image:radial-gradient(ellipse 80% 60% at 50% 50%,black,transparent);
+    }
+    .ads-hp-jadul .hero-grid,
+    .ads-tablet-jadul .hero-grid { display:none; }
+
+    .hero-glow {
+      position:absolute; top:30%; left:50%;
+      transform:translate(-50%,-50%);
+      width:600px; height:300px;
+      background:radial-gradient(ellipse,#f9731620 0%,transparent 70%);
+      pointer-events:none;
+    }
+    .ads-hp-jadul .hero-glow,
+    .ads-tablet-jadul .hero-glow { display:none; }
+
+    /* Eyebrow */
+    .hero-eyebrow {
+      display:inline-flex; align-items:center; gap:.5rem;
+      font-family:'JetBrains Mono',monospace; font-size:.72rem;
+      color:var(--accent-orange); letter-spacing:.12em; text-transform:uppercase;
+      margin-bottom:1.5rem; padding:.4rem 1rem;
+      border:1px solid var(--border-accent); border-radius:100px;
+      background:rgba(249,115,22,.06);
+    }
+    .hero-eyebrow::before {
+      content:''; width:6px; height:6px; border-radius:50%;
+      background:var(--accent-orange);
+      animation:pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity:1; transform:scale(1); }
+      50%      { opacity:.4; transform:scale(.8); }
+    }
+    .ads-hp-jadul .hero-eyebrow::before,
+    .ads-tablet-jadul .hero-eyebrow::before { animation:none; }
+
+    /* Title */
+    .hero-title {
+      font-size:var(--font-display);
+      font-weight:900; line-height:1.05;
+      letter-spacing:-.03em; margin-bottom:.5rem;
+    }
+    .hero-title .highlight {
+      background:linear-gradient(135deg,var(--accent-orange),var(--accent-yellow));
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+    }
+    .hero-subtitle {
+      font-size:clamp(.88rem,2vw,1.05rem);
+      color:var(--text-secondary); margin-bottom:3rem; letter-spacing:.01em;
+    }
+
+    /* ── iPhone specific hero ── */
+    .ads-iphone .hero { padding-top:calc(var(--nav-h) + 5rem); }
+    .ads-iphone .hero-title { font-size:2.4rem; }
+    .ads-iphone .hero-subtitle { font-size:.88rem; }
+
+    /* ── HP tweaks ── */
+    .ads-hp .hero-title,
+    .ads-hp-jadul .hero-title { font-size:2rem; }
+
+    /* ── PC/Laptop: wider layout ── */
+    .ads-pc .hero, .ads-laptop .hero { padding-left:6rem; padding-right:6rem; }
+
+    /* ── Tablet iPad ── */
+    .ads-tablet-ipad .hero { padding-left:4rem; padding-right:4rem; }
+
+    /* ─── README CARD ─── */
+    .readme-wrapper {
+      width:100%; max-width:760px;
+      margin:0 auto 3rem; position:relative; z-index:1;
+    }
+    .ads-pc .readme-wrapper,
+    .ads-laptop .readme-wrapper { max-width:880px; }
+    .ads-tablet-ipad .readme-wrapper { max-width:680px; }
+    .ads-hp .readme-wrapper,
+    .ads-hp-jadul .readme-wrapper,
+    .ads-iphone .readme-wrapper { max-width:100%; }
+
+    .readme-card {
+      background:var(--bg-card);
+      border:1px solid var(--border); border-radius:var(--radius);
+      overflow:hidden;
+      box-shadow:var(--glow),0 4px 24px rgba(0,0,0,.4);
+      text-align:left;
+    }
+    .ads-hp-jadul .readme-card { box-shadow:none; }
+
+    .readme-topbar {
+      display:flex; align-items:center; gap:.6rem;
+      padding:.85rem 1.2rem;
+      background:var(--bg-secondary); border-bottom:1px solid var(--border);
+    }
+    .readme-dot { width:11px; height:11px; border-radius:50%; }
+    .readme-dot.red    { background:#ff5f57; }
+    .readme-dot.yellow { background:#ffbd2e; }
+    .readme-dot.green  { background:#28c840; }
+    .ads-hp-jadul .readme-dot,
+    .ads-tablet-jadul .readme-dot { width:8px; height:8px; }
+
+    .readme-filename {
+      margin-left:.4rem; font-family:'JetBrains Mono',monospace;
+      font-size:.7rem; color:var(--text-muted); letter-spacing:.04em;
+    }
+    .readme-body { padding:2rem 2.2rem; min-height:100px; }
+    .ads-hp .readme-body,
+    .ads-iphone .readme-body,
+    .ads-hp-jadul .readme-body { padding:1.2rem 1rem; }
+
+    .readme-loading {
+      display:flex; align-items:center; gap:.75rem;
+      color:var(--text-muted); font-family:'JetBrains Mono',monospace; font-size:.8rem;
+    }
+    .readme-spinner {
+      width:16px; height:16px;
+      border:2px solid var(--border); border-top-color:var(--accent-orange);
+      border-radius:50%; animation:spin .8s linear infinite;
+    }
+    @keyframes spin { to { transform:rotate(360deg); } }
+    .ads-hp-jadul .readme-spinner { animation:none; border-top-color:var(--text-muted); }
+
+    /* Markdown */
+    .md-content h1 { font-size:1.5rem; font-weight:800; letter-spacing:-.02em; margin-bottom:.3rem; }
+    .md-content h2 { font-size:1rem; font-weight:700; color:var(--accent-orange); margin:1.4rem 0 .5rem; }
+    .md-content p  { font-size:.88rem; line-height:1.75; color:var(--text-secondary); margin-bottom:.75rem; }
+    .md-content em { color:var(--text-muted); font-style:italic; }
+    .md-content strong { color:var(--text-primary); font-weight:600; }
+    .md-content ul,
+    .md-content ol  { padding-left:1.4rem; margin-bottom:.75rem; }
+    .md-content li  { font-size:.86rem; line-height:1.7; color:var(--text-secondary); margin-bottom:.2rem; }
+    .md-content hr  { border:none; border-top:1px solid var(--border); margin:1.4rem 0; }
+    .md-content code {
+      font-family:'JetBrains Mono',monospace; font-size:.76rem;
+      background:rgba(249,115,22,.08); border:1px solid var(--border-accent);
+      color:var(--accent-orange); padding:.1rem .35rem; border-radius:4px;
+    }
+    .ads-hp-jadul .md-content h1 { font-size:1.2rem; }
+    .ads-hp-jadul .md-content p,
+    .ads-hp-jadul .md-content li { font-size:.82rem; line-height:1.6; }
+
+    /* ─── CTA ─── */
+    .cta-section {
+      position:relative; z-index:1;
+      display:flex; flex-direction:column;
+      align-items:center; gap:.7rem; margin-bottom:1rem;
+    }
+    .btn-primary {
+      display:inline-flex; align-items:center; gap:.6rem;
+      padding:.85rem 2rem;
+      background:linear-gradient(135deg,var(--accent-orange),var(--accent-orange-dim));
+      color:#fff; font-family:'Inter',sans-serif; font-size:.9rem; font-weight:600;
+      border:none; border-radius:10px; cursor:pointer;
+      letter-spacing:.01em; transition:all .2s ease;
+      box-shadow:0 4px 20px rgba(249,115,22,.3);
+    }
+    .btn-primary:hover:not(.disabled) { transform:translateY(-2px); box-shadow:0 8px 28px rgba(249,115,22,.4); }
+    .btn-primary:active:not(.disabled) { transform:translateY(0); }
+    .btn-primary.disabled {
+      background:var(--bg-card); color:var(--text-muted);
+      cursor:not-allowed; box-shadow:none; border:1px solid var(--border);
+    }
+    .btn-arrow { transition:transform .2s ease; }
+    .btn-primary:hover:not(.disabled) .btn-arrow { transform:translateX(3px); }
+
+    /* iPhone: full width button */
+    .ads-iphone .btn-primary { width:100%; max-width:320px; justify-content:center; padding:1rem 1.5rem; font-size:.95rem; }
+
+    /* HP jadul: no hover transform */
+    .ads-hp-jadul .btn-primary:hover:not(.disabled) { transform:none; }
+
+    /* tablet: wider button */
+    .ads-tablet-ipad .btn-primary,
+    .ads-tablet .btn-primary { min-width:260px; justify-content:center; }
+
+    .btn-warning {
+      display:none; align-items:center; gap:.5rem;
+      font-size:.76rem; color:var(--accent-yellow);
+      font-family:'JetBrains Mono',monospace; letter-spacing:.02em;
+    }
+    .btn-warning.show { display:flex; animation:fadeIn .2s ease; }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(-4px); } to { opacity:1; transform:translateY(0); } }
+    .btn-warning::before { content:'⚠'; font-size:.82rem; }
+    .ads-hp-jadul .btn-warning.show { animation:none; }
+
+    /* ─── STATS BAR ─── */
+    .stats-bar {
+      position:relative; z-index:1;
+      display:flex; align-items:center; justify-content:center;
+      gap:2.5rem; padding:1.5rem 2rem; margin-top:4rem;
+      border-top:1px solid var(--border);
+    }
+    .stat-item { display:flex; flex-direction:column; align-items:center; gap:.2rem; }
+    .stat-value { font-family:'JetBrains Mono',monospace; font-size:1.3rem; font-weight:600; color:var(--accent-orange); }
+    .stat-label { font-size:.68rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:.08em; }
+    .stat-divider { width:1px; height:32px; background:var(--border); }
+    .ads-hp .stats-bar,
+    .ads-iphone .stats-bar { gap:1.2rem; padding:1rem; }
+    .ads-hp .stat-value,
+    .ads-iphone .stat-value { font-size:1rem; }
+    .ads-hp-jadul .stats-bar { gap:.8rem; }
+    .ads-hp-jadul .stat-value { font-size:.9rem; }
+    .ads-pc .stats-bar,
+    .ads-laptop .stats-bar { gap:4rem; }
+    .ads-pc .stat-value,
+    .ads-laptop .stat-value { font-size:1.5rem; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      position:relative; z-index:1; text-align:center;
+      padding:1.4rem; border-top:1px solid var(--border);
+      font-size:.7rem; color:var(--text-muted);
+      font-family:'JetBrains Mono',monospace; letter-spacing:.04em;
+    }
+    footer span { color:var(--accent-orange); }
+
+    /* ─── REDUCED MOTION ─── */
+    @media (prefers-reduced-motion:reduce) {
+      *,*::before,*::after { animation-duration:.01ms !important; transition-duration:.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="road-stripe"></div>
+  <div id="ads-badge">ADS · Mendeteksi...</div>
+
+  <!-- NAVBAR -->
+  <nav>
+    <a class="nav-logo" href="#">
+      <div class="nav-logo-icon">OF</div>
+      <div>
+        <div class="nav-logo-text">Overfreight Decal</div>
+        <div class="nav-logo-sub">Indonesia Community</div>
+      </div>
+    </a>
+    <div class="nav-badge" id="nav-version">v1.0.0</div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-glow"></div>
+
+    <div class="hero-eyebrow">Indonesia Overfreight Community</div>
+    <h1 class="hero-title">Gudang ID <span class="highlight">Decal</span><br/>Overfreight Indonesia</h1>
+    <p class="hero-subtitle">Kumpulan ID decal resmi dari anggota komunitas, lengkap dengan informasi kreator.</p>
+
+    <!-- README CARD -->
+    <div class="readme-wrapper">
+      <div class="readme-card">
+        <div class="readme-topbar">
+          <div class="readme-dot red"></div>
+          <div class="readme-dot yellow"></div>
+          <div class="readme-dot green"></div>
+          <span class="readme-filename">README.md</span>
+        </div>
+        <div class="readme-body">
+          <div id="readme-loading" class="readme-loading">
+            <div class="readme-spinner"></div>
+            Memuat dokumen...
+          </div>
+          <div id="readme-content" class="md-content" style="display:none;"></div>
+          <div id="readme-error" style="display:none;color:var(--text-muted);font-size:.8rem;font-family:'JetBrains Mono',monospace;">
+            Gagal memuat README.md.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-section">
+      <button id="btn-id" class="btn-primary disabled" onclick="handleNav()">
+        Lihat Daftar ID Decal
+        <span class="btn-arrow">→</span>
+      </button>
+      <div id="btn-warning" class="btn-warning">
+        Halaman daftar ID belum tersedia saat ini.
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-bar">
+      <div class="stat-item">
+        <span class="stat-value" id="stat-id">—</span>
+        <span class="stat-label">Total ID</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-value" id="stat-creator">—</span>
+        <span class="stat-label">Kreator</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-value">ID</span>
+        <span class="stat-label">Bahasa</span>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 <span>Indonesia Overfreight Community</span> — Semua hak cipta milik kreator masing-masing.
+  </footer>
+
+  <script>
+  /* ═══════════════════════════════════════════════════════
+     AUTOMATIC DEVICE SYSTEM (ADS) v1.0
+     Deteksi otomatis device → apply class ke <html>
+     Supported: iphone | hp | hp-jadul | tablet-ipad |
+                tablet | tablet-jadul | laptop | pc
+  ═══════════════════════════════════════════════════════ */
+  const ADS = (() => {
+    const ua  = navigator.userAgent;
+    const W   = window.innerWidth;
+    const H   = window.innerHeight;
+    const DPR = window.devicePixelRatio || 1;
+
+    // Touch support
+    const isTouch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
+
+    // OS detections
+    const isIOS     = /iP(hone|od|ad)/i.test(ua);
+    const isAndroid = /Android/i.test(ua);
+    const isMacOS   = /Macintosh|Mac OS X/i.test(ua) && !isIOS;
+    const isWindows = /Windows NT/i.test(ua);
+
+    // Model hints
+    const isIPad    = /iPad/i.test(ua) || (isMacOS && isTouch); // iPad in desktop mode
+    const isIPhone  = /iPhone/i.test(ua);
+
+    // Low-end / jadul heuristics
+    // - Android < 9, or very low DPR + small screen, or old UA hints
+    const androidVer = (() => {
+      const m = ua.match(/Android (\d+)/i);
+      return m ? parseInt(m[1]) : 99;
+    })();
+    const isLowEndAndroid = isAndroid && androidVer < 9;
+    const isLowEndDPR     = DPR < 1.5 && W < 480;
+
+    // Core width brackets
+    const isMobileWidth  = W <= 480;
+    const isNarrow       = W <= 390;   // iPhone SE / small Android
+    const isTabletWidth  = W > 480 && W <= 1024;
+    const isDesktopWidth = W > 1024;
+
+    // Has hardware concurrency (cores) info?
+    const cores = navigator.hardwareConcurrency || 4;
+    const isLowPower = cores <= 2;
+
+    // ── Classify ──
+    let device = 'pc';
+
+    if (isIPhone || (isIOS && !isIPad)) {
+      device = 'iphone';
+    } else if (isIPad) {
+      if (isLowPower || androidVer < 9) {
+        device = 'tablet-jadul';
+      } else {
+        device = 'tablet-ipad';
+      }
+    } else if (isAndroid && isTabletWidth) {
+      if (isLowEndAndroid || isLowPower) {
+        device = 'tablet-jadul';
+      } else {
+        device = 'tablet';
+      }
+    } else if (isTouch && isMobileWidth) {
+      if (isLowEndAndroid || isLowEndDPR || isLowPower) {
+        device = 'hp-jadul';
+      } else {
+        device = 'hp';
+      }
+    } else if (isDesktopWidth) {
+      // Laptop vs PC: no touch, desktop width
+      // Laptop hint: macOS (MacBook), or Windows + battery API available
+      const hasBattery = 'getBattery' in navigator;
+      if (isMacOS || hasBattery) {
+        device = 'laptop';
+      } else {
+        device = 'pc';
+      }
+    } else if (isTabletWidth && !isTouch) {
+      device = 'laptop';
+    }
+
+    // ── Apply class to <html> ──
+    document.documentElement.classList.add('ads-' + device);
+
+    // ── Badge update ──
+    const labels = {
+      'iphone':       '📱 iPhone',
+      'hp':           '📱 HP',
+      'hp-jadul':     '📱 HP Jadul',
+      'tablet-ipad':  '📲 iPad',
+      'tablet':       '📲 Tablet',
+      'tablet-jadul': '📲 Tablet Jadul',
+      'laptop':       '💻 Laptop',
+      'pc':           '🖥️ PC'
+    };
+
+    // Lite mode flag
+    const isLite = device === 'hp-jadul' || device === 'tablet-jadul';
+
+    return { device, isLite, label: labels[device] || device };
+  })();
+
+  // Update badge
+  document.getElementById('ads-badge').textContent = 'ADS · ' + ADS.label;
+
+  // Lite mode: disable road stripe animation
+  if (ADS.isLite) {
+    const stripe = document.querySelector('.road-stripe');
+    if (stripe) stripe.style.animation = 'none';
+  }
+
+  /* ═══════════════════════════════════════════════════════
+     CONFIG LOADER
+  ═══════════════════════════════════════════════════════ */
+  let CFG = null;
+
+  async function loadConfig() {
+    try {
+      const res = await fetch('./config.json');
+      if (!res.ok) throw new Error('config not found');
+      CFG = await res.json();
+      applyConfig();
+    } catch (e) {
+      console.warn('[Config] Gagal memuat config.json, menggunakan default.');
+      applyConfig(true);
+    }
+  }
+
+  function applyConfig(useFallback = false) {
+    // Version badge
+    const ver = CFG?.site?.version || '1.0.0';
+    document.getElementById('nav-version').textContent = 'v' + ver;
+
+    // Pages toggle — dari config.json, bukan dari cek file
+    const idPage = CFG?.pages?.id;
+    const btn    = document.getElementById('btn-id');
+
+    if (idPage && idPage.enabled === true) {
+      btn.classList.remove('disabled');
+    } else {
+      btn.classList.add('disabled');
+    }
+
+    // Stats dari decals
+    const decals   = CFG?.decals || [];
+    const total    = decals.length;
+    const creators = [...new Set(decals.map(d => d.discord || d.roblox).filter(Boolean))].length;
+
+    document.getElementById('stat-id').textContent      = total    > 0 ? total    : '—';
+    document.getElementById('stat-creator').textContent = creators > 0 ? creators : '—';
+  }
+
+  /* ═══════════════════════════════════════════════════════
+     README LOADER
+  ═══════════════════════════════════════════════════════ */
+  async function loadReadme() {
+    const loading = document.getElementById('readme-loading');
+    const content = document.getElementById('readme-content');
+    const error   = document.getElementById('readme-error');
+    try {
+      const res = await fetch('./README.md');
+      if (!res.ok) throw new Error('not found');
+      const text = await res.text();
+      content.innerHTML = marked.parse(text);
+      loading.style.display = 'none';
+      content.style.display = 'block';
+    } catch (e) {
+      loading.style.display = 'none';
+      error.style.display   = 'block';
+    }
+  }
+
+  /* ═══════════════════════════════════════════════════════
+     NAVIGASI
+  ═══════════════════════════════════════════════════════ */
+  let warnTimer;
+  function handleNav() {
+    const btn     = document.getElementById('btn-id');
+    const warning = document.getElementById('btn-warning');
+    const msg     = CFG?.pages?.id?.disabled_message || 'Halaman daftar ID belum tersedia saat ini.';
+
+    if (btn.classList.contains('disabled')) {
+      warning.textContent = '';
+      // rebuild agar re-trigger animasi
+      warning.classList.remove('show');
+      void warning.offsetWidth;
+      warning.textContent = msg;
+      warning.classList.add('show');
+      clearTimeout(warnTimer);
+      warnTimer = setTimeout(() => warning.classList.remove('show'), 3500);
+      return;
+    }
+
+    const path = CFG?.pages?.id?.path || './id.html';
+    window.location.href = path;
+  }
+
+  /* ═══════════════════════════════════════════════════════
+     INIT
+  ═══════════════════════════════════════════════════════ */
+  loadConfig();
+  loadReadme();
+
+  // Sembunyikan badge ADS setelah 4 detik
+  setTimeout(() => {
+    const badge = document.getElementById('ads-badge');
+    if (badge) badge.style.opacity = '0';
+  }, 4000);
+  </script>
+</body>
+</html>
