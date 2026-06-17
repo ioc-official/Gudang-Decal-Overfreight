@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Daftar ID Decal — ODI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css"/>
+</head>
+<body>
+
+<div class="road"></div>
+<div id="ads-badge">ADS · Mendeteksi...</div>
+<div id="copy-toast"></div>
+
+<!-- ══ NAVBAR ══ -->
+<nav>
+  <div class="nav-l">
+    <a class="nav-logo" href="./index.html" onclick="navTo('index');return false;">
+      <div class="nav-icon">OF</div>
+      <div class="nav-name">ODI</div>
+    </a>
+    <div class="nav-page-label">Daftar ID</div>
+  </div>
+  <div class="nav-r">
+    <button class="nav-btn" onclick="navTo('index')">← Beranda</button>
+    <button class="nav-btn" id="nav-btn-license" onclick="navTo('license')">Lisensi</button>
+    <div class="nav-pill" id="nav-ver">v1.0.0</div>
+  </div>
+</nav>
+
+<!-- ══ APP LAYOUT ══ -->
+<div class="app-layout">
+
+  <!-- LEFT SIDEBAR -->
+  <aside class="sidebar-left">
+    <div>
+      <div class="sidebar-section-label">Navigasi</div>
+      <button class="side-nav-item" onclick="navTo('index')">
+        <span class="side-nav-icon">🏠</span> Beranda
+      </button>
+      <button class="side-nav-item active">
+        <span class="side-nav-icon">🏷</span> Daftar ID
+      </button>
+      <button class="side-nav-item" onclick="navTo('license')">
+        <span class="side-nav-icon">📄</span> Lisensi
+      </button>
+    </div>
+
+    <div>
+      <div class="sidebar-section-label">Filter</div>
+      <div class="filter-wrap">
+        <button class="filter-pill active" data-filter="all">
+          Semua <span class="filter-count">0</span>
+        </button>
+      </div>
+    </div>
+
+    <div>
+      <div class="sidebar-section-label">Info</div>
+      <div style="display:flex;flex-direction:column;gap:.1rem;">
+        <div class="info-row">
+          <span class="info-label">Total ID</span>
+          <span class="info-val" id="side-stat-id">—</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Kreator</span>
+          <span class="info-val" id="side-stat-cr">—</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Bahasa</span>
+          <span class="info-val">ID</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN FEED -->
+  <main class="feed-main">
+
+    <!-- Feed Header -->
+    <div class="feed-header">
+      <div class="feed-title">Untuk Kamu</div>
+      <div class="feed-count" id="feed-count">— ID</div>
+    </div>
+
+    <!-- Search -->
+    <div class="search-wrap">
+      <div class="search-bar">
+        <span class="search-icon">🔍</span>
+        <input
+          type="text"
+          id="search-input"
+          class="search-input"
+          placeholder="Cari nama, ID, atau kreator..."
+          autocomplete="off"
+        />
+      </div>
+    </div>
+
+    <!-- Feed List -->
+    <div class="feed-list" id="feed-list">
+      <div class="feed-loading">
+        <div class="feed-spinner"></div>
+        Memuat data...
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="feed-footer">
+      <span>&copy; 2025 Indonesia Overfreight Community</span>
+      <span>Semua hak cipta milik kreator masing-masing.</span>
+    </div>
+
+  </main>
+
+  <!-- RIGHT SIDEBAR -->
+  <aside class="sidebar-right">
+
+    <!-- Community Links Widget -->
+    <div class="widget">
+      <div class="widget-header">
+        <div class="widget-title">Komunitas ODI</div>
+        <div class="widget-sub">Cek pengumuman di Discord IOC</div>
+      </div>
+      <div class="widget-body" id="links-widget-body">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--txt3);">
+          Memuat links...
+        </div>
+      </div>
+    </div>
+
+    <!-- Info Widget -->
+    <div class="widget">
+      <div class="widget-header">
+        <div class="widget-title">Tentang ODI</div>
+        <div class="widget-sub">Overfreight Decal Indonesia</div>
+      </div>
+      <div class="widget-body">
+        <div class="info-row">
+          <span class="info-label">Total ID</span>
+          <span class="info-val" id="side-stat-id-r">—</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Kreator</span>
+          <span class="info-val" id="side-stat-cr-r">—</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Versi</span>
+          <span class="info-val" id="side-ver-r">1.0.0</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Bahasa</span>
+          <span class="info-val">Indonesia</span>
+        </div>
+      </div>
+    </div>
+
+  </aside>
+
+</div>
+
+<!-- MOBILE BOTTOM SHEET -->
+<button class="mobile-links-btn" onclick="openSheet()" title="Komunitas ODI">🔗</button>
+
+<div class="mobile-sheet-overlay" id="sheet-overlay"></div>
+<div class="mobile-sheet" id="mobile-sheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-title">Komunitas ODI</div>
+  <div id="sheet-links-body">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--txt3);">
+      Memuat links...
+    </div>
+  </div>
+</div>
+
+<script src="./app.js"></script>
+<script>
+  // sync right sidebar stats after applyConfig runs
+  const _origApply = applyConfig;
+  window.addEventListener('DOMContentLoaded', () => {
+    // patch right sidebar stats after load
+    const origRender = renderFeed;
+    // override to also sync right sidebar
+    const patchStats = () => {
+      const tot = allDecals.length;
+      const cr  = [...new Set(allDecals.map(d => d.discord || d.roblox).filter(Boolean))].length;
+      const r1  = document.getElementById('side-stat-id-r');
+      const r2  = document.getElementById('side-stat-cr-r');
+      const rv  = document.getElementById('side-ver-r');
+      if (r1) r1.textContent = tot > 0 ? tot : '—';
+      if (r2) r2.textContent = cr  > 0 ? cr  : '—';
+      if (rv) rv.textContent = CFG?.site?.version || '1.0.0';
+    };
+    // call patchStats after config loaded (delay to ensure applyConfig ran)
+    setTimeout(patchStats, 800);
+  });
+</script>
+</body>
+</html>
