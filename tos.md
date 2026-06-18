@@ -1,6 +1,6 @@
 # ODI Terms Of Service (OTOS)
 
-**Versi 1.0 — Berlaku sejak 2025**
+**Versi 1.0 — Berlaku sejak 2026**
 
 ---
 
@@ -12,7 +12,7 @@ Dengan mengakses dan menggunakan website **Overfreight Decal Indonesia (ODI)**, 
 
 ## 2. Tentang Layanan ODI
 
-ODI adalah platform direktori ID decal Roblox yang dikelola oleh komunitas **Indonesia Overfreight Community**. Layanan ini bersifat gratis dan tidak memerlukan registrasi akun. ODI tidak meng-hosting aset atau file decal secara langsung, melainkan hanya mencatat ID referensi yang tersedia di platform Roblox.
+ODI adalah platform direktori ID decal Roblox livery kereta api Indonesia (KAI) yang dikelola oleh komunitas **Indonesia Overfreight Community**. Layanan ini bersifat gratis dan tidak memerlukan registrasi akun. ODI tidak meng-hosting aset atau file decal secara langsung, melainkan hanya mencatat ID referensi yang tersedia di platform Roblox.
 
 ---
 
@@ -47,7 +47,7 @@ Seluruh ID decal yang terdaftar di ODI merupakan karya dan milik kreator masing-
 
 ## 6. Penafian Layanan
 
-ODI disediakan sebagaimana adanya (*as is*) tanpa jaminan ketersediaan layanan secara terus-menerus. ODI tidak bertanggung jawab atas:
+ODI disediakan sebagaimana adanya tanpa jaminan ketersediaan layanan secara terus-menerus. ODI tidak bertanggung jawab atas:
 
 - Ketidaktersediaan ID decal akibat perubahan atau penghapusan di platform Roblox.
 - Kerugian yang timbul akibat penggunaan ID decal yang terdaftar.
@@ -67,4 +67,4 @@ Pertanyaan, laporan, atau pengajuan konten dapat disampaikan melalui server Disc
 
 ---
 
-*Dengan menggunakan layanan ODI, kamu menyetujui seluruh ketentuan di atas.*
+_Dengan menggunakan layanan ODI, kamu menyetujui seluruh ketentuan di atas._
