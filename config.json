@@ -70,8 +70,18 @@
       "tier": "Lokomotif",
       "discord": "@mivzry",
       "roblox": "@azamks122",
-      "preview": "./assets/preview-placeholder.png",
+      "preview": "./assets/photo1.png",
       "tanggal": "2026-06-10"
+    },
+    {
+      "id": "-",
+      "nama": "Coming Soon Next Livery...",
+      "deskripsi": "Lorem Ipsum",
+      "tier": "Lokomotif",
+      "discord": "@-",
+      "roblox": "@-",
+      "preview": "./assets/preview-placeholder.png",
+      "tanggal": "2026-06-18"
     }
   ],
 
