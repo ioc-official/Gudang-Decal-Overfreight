@@ -6,7 +6,7 @@
     "short_name": "ODI",
     "version": "1.0.0",
     "language": "id",
-    "description": "Gudang ID decal resmi komunitas Indonesia Overfreight. Semua ID dikumpulkan dari anggota komunitas dan dilengkapi informasi kreator aslinya."
+    "description": "Gudang ID decal livery KAI resmi komunitas Indonesia Overfreight. Semua ID dikumpulkan dari anggota komunitas dan dilengkapi informasi kreator aslinya."
   },
 
   "pages": {
@@ -16,8 +16,8 @@
       "label": "Beranda"
     },
     "id": {
-      "enabled": true,
-      "path": "./id.html",
+      "enabled": false,
+      "path": "./main.html",
       "label": "Daftar ID Decal",
       "disabled_message": "Halaman daftar ID belum tersedia saat ini."
     },
@@ -31,7 +31,7 @@
 
   "id_page": {
     "title": "Daftar ID Decal",
-    "subtitle": "Temukan dan salin ID decal favoritmu dari komunitas Indonesia Overfreight.",
+    "subtitle": "Temukan dan salin ID decal livery KAI favoritmu dari komunitas Indonesia Overfreight.",
     "feed_label": "Untuk Kamu",
     "empty_message": "Belum ada ID decal yang terdaftar saat ini.",
     "features": {
@@ -65,12 +65,33 @@
   "decals": [
     {
       "id": "123456789",
-      "nama": "Hino 500 - Red Express",
-      "deskripsi": "Livery merah dengan aksen putih, cocok untuk truk jarak jauh.",
+      "nama": "CC201 - Livery Biru Eksekutif",
+      "deskripsi": "Livery biru klasik lokomotif CC201 series, digunakan pada kereta eksekutif jarak jauh.",
+      "tier": "Lokomotif",
       "discord": "@ContohUser",
       "roblox": "ContohRoblox",
       "preview": "./assets/preview-placeholder.png",
       "tanggal": "2025-01-01"
+    },
+    {
+      "id": "987654321",
+      "nama": "KRL Commuter Line - Merah Putih",
+      "deskripsi": "Livery KRL Commuter Line warna merah putih khas Jabodetabek.",
+      "tier": "Kereta",
+      "discord": "@ContohUser",
+      "roblox": "ContohRoblox",
+      "preview": "./assets/preview-placeholder.png",
+      "tanggal": "2025-01-02"
+    },
+    {
+      "id": "112233445",
+      "nama": "CC206 - Livery Hijau Argo",
+      "deskripsi": "Livery hijau lokomotif CC206 yang digunakan pada rangkaian kereta Argo.",
+      "tier": "Lokomotif",
+      "discord": "@ContohUser2",
+      "roblox": "ContohRoblox2",
+      "preview": "./assets/preview-placeholder.png",
+      "tanggal": "2025-01-03"
     }
   ],
 
@@ -83,6 +104,6 @@
 
   "transitions": {
     "smooth_change": true,
-    "duration_ms": 300
+    "duration_ms": 400
   }
 }
